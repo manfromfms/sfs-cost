@@ -1,5 +1,7 @@
 var bp = document.getElementById("bp")
 
+var out = document.getElementById("out")
+
 bp.addEventListener('change', (event) => {
   var file = event.target.files[0]
   
@@ -37,9 +39,15 @@ bp.addEventListener('change', (event) => {
   												dc = costs[sil].cost
   								}
   								
+  								if(costs[sil].fuel) {
+  												dc += costs[sil].fuelCost * input[i].N.height * (input[i].N.width_a + input[i].N.width_b) / 2 * input[i].N.fuel_percent
+  								}
+  								
   								cost += dc
   								
   								console.log(input[i].n + ": " + dc)
+  								
+  								out.innerHTML += input[i].n + ": " + dc + "<br>"
   				}
   				
   				console.log(cost)
