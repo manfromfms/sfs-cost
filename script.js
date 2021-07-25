@@ -4,6 +4,8 @@ var out = document.getElementById("out")
 
 bp.addEventListener('change', (event) => {
   var file = event.target.files[0]
+
+  out.innerHTML = ''
   
   let reader = new FileReader()
   
