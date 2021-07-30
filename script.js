@@ -4,8 +4,6 @@ var out = document.getElementById("out")
 
 bp.addEventListener('change', (event) => {
   var file = event.target.files[0]
-
-  out.innerHTML = ''
   
   let reader = new FileReader()
   
@@ -15,6 +13,7 @@ bp.addEventListener('change', (event) => {
   				var input = JSON.parse(reader.result).parts
   				
   				var cost = 0
+  				var costFuel = 0
   				var num = 0
   				
   				for(let i in input) {
@@ -28,6 +27,7 @@ bp.addEventListener('change', (event) => {
   								}
   								
   								var dc = 0
+  								var fu = 0
   				
   								if(costs[sil].size) {
   												dc = costs[sil].cost * input[i].N.size
@@ -42,10 +42,12 @@ bp.addEventListener('change', (event) => {
   								}
   								
   								if(costs[sil].fuel) {
-  												dc += costs[sil].fuelCost * input[i].N.height * (input[i].N.width_a + input[i].N.width_b) / 2 * input[i].N.fuel_percent
+  												fu += costs[sil].fuelCost * input[i].N.height * (input[i].N.width_a + input[i].N.width_b) / 2 * input[i].N.fuel_percent
+  												console.log(input[0].n + " fuel: " + fu)
   								}
   								
   								cost += dc
+         costFuel += fu
   								
   								console.log(input[i].n + ": " + dc)
   								
@@ -53,7 +55,7 @@ bp.addEventListener('change', (event) => {
   				}
   				
   				console.log(cost)
-  				document.getElementById('costp').innerHTML = 'Цена: ' + cost
+  				document.getElementById('costp').innerHTML = 'Цена конструкции: ' + cost + '<br>Цена топлива: ' + costFuel + '<br>Общая цена: ' + (cost + costFuel)
   }
 
   reader.onerror = function() {
